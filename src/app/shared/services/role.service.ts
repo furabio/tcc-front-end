@@ -8,6 +8,6 @@ import { Role } from '../model/role.model';
 export class RoleService extends BaseResourceService<Role> {
 
   constructor(protected injector: Injector) {
-    super("", "", injector);
+    super("api", "roles", injector);
   }
 }

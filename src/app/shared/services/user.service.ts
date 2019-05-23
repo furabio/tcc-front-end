@@ -9,6 +9,6 @@ import { User } from '../model/user.model';
 export class UserService extends BaseResourceService<User> {
 
   constructor(protected injector: Injector) {
-    super("", "", injector);
+    super("api", "users", injector);
   }
 }

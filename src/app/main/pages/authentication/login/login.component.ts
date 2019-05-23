@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import { AuthService } from 'app/core/services/auth.service';
+import { UserAuth } from 'app/core/model/user-auth.model';
+import { User } from 'app/shared/model/user.model';
 
 @Component({
     selector     : 'login',
@@ -15,18 +18,12 @@ export class LoginComponent implements OnInit
 {
     loginForm: FormGroup;
 
-    /**
-     * Constructor
-     *
-     * @param {FuseConfigService} _fuseConfigService
-     * @param {FormBuilder} _formBuilder
-     */
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private _authService: AuthService
     )
     {
-        // Configure the layout
         this._fuseConfigService.config = {
             layout: {
                 navbar   : {
@@ -45,18 +42,17 @@ export class LoginComponent implements OnInit
         };
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void
     {
         this.loginForm = this._formBuilder.group({
             email   : ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
+        });
+    }
+
+    login() {
+        this._authService.login(new UserAuth(this.loginForm.get('email').value, this.loginForm.get('password').value)).subscribe(data => {
+            console.log(data);
         });
     }
 }

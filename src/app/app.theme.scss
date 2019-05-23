@@ -94,7 +94,6 @@ $typography: mat-typography-config(
 @import "src/app/main/apps/todo/todo.theme";
 
 @import "src/app/main/pages/authentication/login/login.theme";
-@import "src/app/main/pages/authentication/login-2/login-2.theme";
 @import "src/app/main/pages/authentication/register/register.theme";
 @import "src/app/main/pages/authentication/register-2/register-2.theme";
 @import "src/app/main/pages/authentication/reset-password/reset-password.theme";
@@ -144,7 +143,6 @@ $typography: mat-typography-config(
 
     // Pages
     @include login-theme($theme);
-    @include login-2-theme($theme);
     @include register-theme($theme);
     @include register-2-theme($theme);
     @include reset-password-theme($theme);
