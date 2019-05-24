@@ -111,7 +111,7 @@ export class AnalyticsDashboardDb
                     data : [221, 428, 492, 471, 413, 344, 294]
                 }
             ],
-            labels    : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            labels    : ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
             colors    : [
                 {
                     borderColor    : '#42a5f5',
@@ -224,7 +224,7 @@ export class AnalyticsDashboardDb
                     data : [432, 428, 327, 363, 456, 267, 231]
                 }
             ],
-            labels   : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            labels   : ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
             colors   : [
                 {
                     borderColor    : '#f44336',

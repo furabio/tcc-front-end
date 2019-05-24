@@ -25,7 +25,7 @@ const routes = [
         loadChildren: './chat/chat.module#ChatModule'
     },
     {
-        path        : 'calendar',
+        path        : 'booking',
         loadChildren: './calendar/calendar.module#CalendarModule'
     },
     {

@@ -1964,7 +1964,7 @@ export class ProjectDashboardDb
                     'rainProbability': '98%',
                     'next3Days'      : [
                         {
-                            'name': 'Sunday',
+                            'name': 'Domingo',
                             'icon': 'icon-rainy',
                             'temp': {
                                 'C': '21',
@@ -1972,7 +1972,7 @@ export class ProjectDashboardDb
                             }
                         },
                         {
-                            'name': 'Sunday',
+                            'name': 'Domingo',
                             'icon': 'icon-cloudy',
                             'temp': {
                                 'C': '19',
@@ -1980,7 +1980,7 @@ export class ProjectDashboardDb
                             }
                         },
                         {
-                            'name': 'Tuesday',
+                            'name': 'Terça',
                             'icon': 'icon-windy3',
                             'temp': {
                                 'C': '24',

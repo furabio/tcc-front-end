@@ -4,17 +4,17 @@ export class PeriodFakeDb {
     public static periods: Period[] = [
         {
             id: 1,
-            init: "7:40",
-            end: "8:30"
+            init: "07:40",
+            end: "08:30"
         },
         {
             id: 2,
-            init: "8:30",
-            end: "9:20"
+            init: "08:30",
+            end: "09:20"
         },
         {
             id: 3,
-            init: "9:30",
+            init: "09:30",
             end: "10:20"
         },
         {

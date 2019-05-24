@@ -22,51 +22,50 @@ import { QuickPanelFakeDb } from 'app/fake-db/quick-panel';
 import { UserFakeDB } from './user';
 import { RoleFakeDb } from './role';
 import { PeriodFakeDb } from './period';
+import { ClassroomFakeDb } from './classroom';
 
-export class FakeDbService implements InMemoryDbService
-{
-    createDb(): any
-    {
+export class FakeDbService implements InMemoryDbService {
+    createDb(): any {
         return {
             // Dashboards
-            'project-dashboard-projects' : ProjectDashboardDb.projects,
-            'project-dashboard-widgets'  : ProjectDashboardDb.widgets,
+            'project-dashboard-projects': ProjectDashboardDb.projects,
+            'project-dashboard-widgets': ProjectDashboardDb.widgets,
             'analytics-dashboard-widgets': AnalyticsDashboardDb.widgets,
 
             // Calendar
             'calendar': CalendarFakeDb.data,
 
             // E-Commerce
-            'e-commerce-products' : ECommerceFakeDb.products,
-            'e-commerce-orders'   : ECommerceFakeDb.orders,
+            'e-commerce-products': ECommerceFakeDb.products,
+            'e-commerce-orders': ECommerceFakeDb.orders,
 
             // Academy
             'academy-categories': AcademyFakeDb.categories,
-            'academy-courses'   : AcademyFakeDb.courses,
-            'academy-course'    : AcademyFakeDb.course,
+            'academy-courses': AcademyFakeDb.courses,
+            'academy-course': AcademyFakeDb.course,
 
             // Mail
-            'mail-mails'  : MailFakeDb.mails,
+            'mail-mails': MailFakeDb.mails,
             'mail-folders': MailFakeDb.folders,
             'mail-filters': MailFakeDb.filters,
-            'mail-labels' : MailFakeDb.labels,
+            'mail-labels': MailFakeDb.labels,
 
             // Chat
             'chat-contacts': ChatFakeDb.contacts,
-            'chat-chats'   : ChatFakeDb.chats,
-            'chat-user'    : ChatFakeDb.user,
+            'chat-chats': ChatFakeDb.chats,
+            'chat-user': ChatFakeDb.user,
 
             // File Manager
             'file-manager': FileManagerFakeDb.files,
 
             // Contacts
             'contacts-contacts': ContactsFakeDb.contacts,
-            'contacts-user'    : ContactsFakeDb.user,
+            'contacts-user': ContactsFakeDb.user,
 
             // Todo
-            'todo-todos'  : TodoFakeDb.todos,
+            'todo-todos': TodoFakeDb.todos,
             'todo-filters': TodoFakeDb.filters,
-            'todo-tags'   : TodoFakeDb.tags,
+            'todo-tags': TodoFakeDb.tags,
 
             // Scrumboard
             'scrumboard-boards': ScrumboardFakeDb.boards,
@@ -75,9 +74,9 @@ export class FakeDbService implements InMemoryDbService
             'invoice': InvoiceFakeDb.invoice,
 
             // Profile
-            'profile-timeline'     : ProfileFakeDb.timeline,
+            'profile-timeline': ProfileFakeDb.timeline,
             'profile-photos-videos': ProfileFakeDb.photosVideos,
-            'profile-about'        : ProfileFakeDb.about,
+            'profile-about': ProfileFakeDb.about,
 
             // Search
             'search': SearchFakeDb.search,
@@ -92,12 +91,12 @@ export class FakeDbService implements InMemoryDbService
             'icons': IconsFakeDb.icons,
 
             // Chat Panel
-            'chat-panel-contacts' : ChatPanelFakeDb.contacts,
+            'chat-panel-contacts': ChatPanelFakeDb.contacts,
             'chat-panel-chats': ChatPanelFakeDb.chats,
             'chat-panel-user': ChatPanelFakeDb.user,
 
             // Quick Panel
-            'quick-panel-notes' : QuickPanelFakeDb.notes,
+            'quick-panel-notes': QuickPanelFakeDb.notes,
             'quick-panel-events': QuickPanelFakeDb.events,
 
             // Users
@@ -105,7 +104,9 @@ export class FakeDbService implements InMemoryDbService
             // Roles
             'roles': RoleFakeDb.roles,
             // Periods
-            'periods': PeriodFakeDb.periods
+            'periods': PeriodFakeDb.periods,
+            //  Classrooms
+            'classrooms': ClassroomFakeDb.classrooms
         };
     }
 }

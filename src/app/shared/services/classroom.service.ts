@@ -8,6 +8,6 @@ import { Classroom } from '../model/classroom.model';
 export class ClassroomService extends BaseResourceService<Classroom> {
 
   constructor(protected injector: Injector) {
-    super("", "", injector);
+    super("api", "classrooms", injector);
   }
 }

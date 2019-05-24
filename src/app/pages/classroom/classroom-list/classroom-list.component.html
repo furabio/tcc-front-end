@@ -1,3 +1,50 @@
-<p>
-  classroom-list works!
-</p>
+<div class="page-layout simple fullwidth">
+
+  <!-- HEADER -->
+  <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+    <h2>Salas</h2>
+  </div>
+  <!-- / HEADER -->
+  <!-- CONTENT -->
+  <div class="page-layout simple content p-24">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Hora Inicial Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Hora Final Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Descrição </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell style="width: 250px;" *matCellDef="let element">
+          <button mat-flat-button class="mr-4" (click)="edit(element.id)" color="accent">Editar</button>
+          <button mat-flat-button class="ml-4" (click)="remove(element.id)" color="warn">Remover</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  <!-- / CONTENT -->
+
+</div>

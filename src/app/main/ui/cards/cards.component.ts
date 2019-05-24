@@ -98,31 +98,31 @@ export class CardsComponent
             },
             data  : [
                 {
-                    'name' : 'Monday',
+                    'name' : 'Segunda',
                     'value': 221
                 },
                 {
-                    'name' : 'Tuesday',
+                    'name' : 'Terça',
                     'value': 428
                 },
                 {
-                    'name' : 'Wednesday',
+                    'name' : 'Quarta',
                     'value': 492
                 },
                 {
-                    'name' : 'Thursday',
+                    'name' : 'Quinta',
                     'value': 471
                 },
                 {
-                    'name' : 'Friday',
+                    'name' : 'Sexta',
                     'value': 413
                 },
                 {
-                    'name' : 'Saturday',
+                    'name' : 'Sábado',
                     'value': 344
                 },
                 {
-                    'name' : 'Sunday',
+                    'name' : 'Domingo',
                     'value': 294
                 }
             ]

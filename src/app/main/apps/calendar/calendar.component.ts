@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subject } from 'rxjs';
 import { startOfDay, isSameDay, isSameMonth } from 'date-fns';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarDateFormatter } from 'angular-calendar';
 
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { fuseAnimations } from '@fuse/animations';
@@ -11,16 +11,23 @@ import { fuseAnimations } from '@fuse/animations';
 import { CalendarService } from 'app/main/apps/calendar/calendar.service';
 import { CalendarEventModel } from 'app/main/apps/calendar/event.model';
 import { CalendarEventFormDialogComponent } from 'app/main/apps/calendar/event-form/event-form.component';
+import { CustomDateFormatter } from './custom-date-formatter.provider';
 
 @Component({
-    selector     : 'calendar',
-    templateUrl  : './calendar.component.html',
-    styleUrls    : ['./calendar.component.scss'],
+    selector: 'calendar',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './calendar.component.html',
+    styleUrls: ['./calendar.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations,
+    providers: [
+        {
+            provide: CalendarDateFormatter,
+            useClass: CustomDateFormatter
+        }
+    ]
 })
-export class CalendarComponent implements OnInit
-{
+export class CalendarComponent implements OnInit {
     actions: CalendarEventAction[];
     activeDayIsOpen: boolean;
     confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
@@ -29,29 +36,30 @@ export class CalendarComponent implements OnInit
     refresh: Subject<any> = new Subject();
     selectedDay: any;
     view: string;
+    locale = 'pt';
     viewDate: Date;
+    weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
 
     constructor(
         private _matDialog: MatDialog,
         private _calendarService: CalendarService
-    )
-    {
+    ) {
         // Set the defaults
-        this.view = 'month';
+        this.view = 'week';
         this.viewDate = new Date();
         this.activeDayIsOpen = true;
-        this.selectedDay = {date: startOfDay(new Date())};
+        this.selectedDay = { date: startOfDay(new Date()) };
 
         this.actions = [
             {
-                label  : '<i class="material-icons s-16">edit</i>',
-                onClick: ({event}: { event: CalendarEvent }): void => {
+                label: '<i class="material-icons s-16">edit</i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
                     this.editEvent('edit', event);
                 }
             },
             {
-                label  : '<i class="material-icons s-16">delete</i>',
-                onClick: ({event}: { event: CalendarEvent }): void => {
+                label: '<i class="material-icons s-16">delete</i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
                     this.deleteEvent(event);
                 }
             }
@@ -70,14 +78,12 @@ export class CalendarComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         /**
          * Watch re-render-refresh for updating db
          */
         this.refresh.subscribe(updateDB => {
-            if ( updateDB )
-            {
+            if (updateDB) {
                 this._calendarService.updateEvents(this.events);
             }
         });
@@ -95,8 +101,7 @@ export class CalendarComponent implements OnInit
     /**
      * Set events
      */
-    setEvents(): void
-    {
+    setEvents(): void {
         this.events = this._calendarService.events.map(item => {
             item.actions = this.actions;
             return new CalendarEventModel(item);
@@ -109,8 +114,7 @@ export class CalendarComponent implements OnInit
      * @param {any} header
      * @param {any} body
      */
-    beforeMonthViewRender({header, body}): void
-    {
+    beforeMonthViewRender({ header, body }): void {
         /**
          * Get the selected day
          */
@@ -118,8 +122,7 @@ export class CalendarComponent implements OnInit
             return _day.date.getTime() === this.selectedDay.date.getTime();
         });
 
-        if ( _selectedDay )
-        {
+        if (_selectedDay) {
             /**
              * Set selected day style
              * @type {string}
@@ -134,19 +137,15 @@ export class CalendarComponent implements OnInit
      *
      * @param {MonthViewDay} day
      */
-    dayClicked(day: CalendarMonthViewDay): void
-    {
+    dayClicked(day: CalendarMonthViewDay): void {
         const date: Date = day.date;
         const events: CalendarEvent[] = day.events;
 
-        if ( isSameMonth(date, this.viewDate) )
-        {
-            if ( (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0 )
-            {
+        if (isSameMonth(date, this.viewDate)) {
+            if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0) {
                 this.activeDayIsOpen = false;
             }
-            else
-            {
+            else {
                 this.activeDayIsOpen = true;
                 this.viewDate = date;
             }
@@ -163,8 +162,7 @@ export class CalendarComponent implements OnInit
      * @param {Date} newStart
      * @param {Date} newEnd
      */
-    eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void
-    {
+    eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
         event.start = newStart;
         event.end = newEnd;
         // console.warn('Dropped or resized', event);
@@ -176,8 +174,7 @@ export class CalendarComponent implements OnInit
      *
      * @param event
      */
-    deleteEvent(event): void
-    {
+    deleteEvent(event): void {
         this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
             disableClose: false
         });
@@ -185,8 +182,7 @@ export class CalendarComponent implements OnInit
         this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
 
         this.confirmDialogRef.afterClosed().subscribe(result => {
-            if ( result )
-            {
+            if (result) {
                 const eventIndex = this.events.indexOf(event);
                 this.events.splice(eventIndex, 1);
                 this.refresh.next(true);
@@ -202,28 +198,25 @@ export class CalendarComponent implements OnInit
      * @param {string} action
      * @param {CalendarEvent} event
      */
-    editEvent(action: string, event: CalendarEvent): void
-    {
+    editEvent(action: string, event: CalendarEvent): void {
         const eventIndex = this.events.indexOf(event);
 
         this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
             panelClass: 'event-form-dialog',
-            data      : {
-                event : event,
+            data: {
+                event: event,
                 action: action
             }
         });
 
         this.dialogRef.afterClosed()
             .subscribe(response => {
-                if ( !response )
-                {
+                if (!response) {
                     return;
                 }
                 const actionType: string = response[0];
                 const formData: FormGroup = response[1];
-                switch ( actionType )
-                {
+                switch (actionType) {
                     /**
                      * Save
                      */
@@ -248,19 +241,17 @@ export class CalendarComponent implements OnInit
     /**
      * Add Event
      */
-    addEvent(): void
-    {
+    addEvent(): void {
         this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
             panelClass: 'event-form-dialog',
-            data      : {
+            data: {
                 action: 'new',
-                date  : this.selectedDay.date
+                date: this.selectedDay.date
             }
         });
         this.dialogRef.afterClosed()
             .subscribe((response: FormGroup) => {
-                if ( !response )
-                {
+                if (!response) {
                     return;
                 }
                 const newEvent = response.getRawValue();

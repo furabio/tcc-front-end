@@ -29,14 +29,14 @@
 
           <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
             <mat-label>Horário de início</mat-label>
-            <input matInput formControlName="username" required>
-            <mat-icon matSuffix class="secondary-text">account_box</mat-icon>
+            <input matInput formControlName="init" type="time" required>
+            <mat-icon matSuffix class="secondary-text">access_time</mat-icon>
             <mat-error>Horário é obrigatório!</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
             <mat-label>Horário de término</mat-label>
-            <input matInput formControlName="password">
-            <mat-icon matSuffix>account_box</mat-icon>
+            <input matInput formControlName="end" type="time" required>
+            <mat-icon matSuffix>access_time</mat-icon>
             <mat-error>Horário é obrigatório!</mat-error>
           </mat-form-field>
         </div>

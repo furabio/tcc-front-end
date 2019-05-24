@@ -1,6 +1,8 @@
 import 'hammerjs';
 
-import { NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,6 +12,10 @@ import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { ToastrModule } from 'ngx-toastr';
 
 import { CoreModule } from './core/core.module';
+import { AuthGuard } from './guards/auth.guard';
+
+registerLocaleData(localePt);
+
 
 const appRoutes: Routes = [
     {
@@ -17,16 +23,29 @@ const appRoutes: Routes = [
         loadChildren: './main/pages/authentication/login/login.module#LoginModule'
     },
     {
+        path: 'home',
+        loadChildren: './pages/home/home.module#HomeModule',
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'periods',
-        loadChildren: './pages/period/period.module#PeriodModule'
+        loadChildren: './pages/period/period.module#PeriodModule',
+        canActivate: [AuthGuard]
     },
     {
         path: 'users',
-        loadChildren: './pages/user/user.module#UserModule'
+        loadChildren: './pages/user/user.module#UserModule',
+        canActivate: [AuthGuard]
     },
     {
-        path: 'apps',
-        loadChildren: './main/apps/apps.module#AppsModule'
+        path: 'classrooms',
+        loadChildren: './pages/classroom/classroom.module#ClassroomModule',
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'classroom',
+        loadChildren: './main/apps/apps.module#AppsModule',
+        canActivate: [AuthGuard]
     },
     {
         path: 'pages',
@@ -46,13 +65,14 @@ const appRoutes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'apps/dashboards/analytics'
+        redirectTo: '/home',
+        canActivate: [AuthGuard]
     }
 ];
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         CoreModule,
