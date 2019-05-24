@@ -6,18 +6,18 @@ export class UserFakeDB
         {
             id: 1,
             username: "admin",
-            password: "admin",
+            password: "admin123",
             email: "admin@admin.com",
             fullName: "Administrator",
             role: {
                 id: 1,
-                name: "ADM"
+                name: "ADMIN"
             }
         },
         {
             id: 2,
             username: "furabio",
-            password: "123",
+            password: "furabio",
             email: "flvdeveloper@gmail.com",
             fullName: "Flávio Silva Cabral",
             role: {

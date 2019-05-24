@@ -15,7 +15,7 @@ export const navigation: FuseNavigation[] = [
                 children: [
                     {
                         id: 'userList',
-                        title: 'Todos os usuários',
+                        title: 'Lista de usuários',
                         type: 'item',
                         url: '/users',
                         exactMatch: true
@@ -156,10 +156,25 @@ export const navigation: FuseNavigation[] = [
         children: [
             {
                 id: 'period',
-                title: 'Período',
-                type: 'item',
+                title: 'Períodos',
+                type: 'collapsable',
                 icon: 'access_time',
-                url: '/periods'
+                children: [
+                    {
+                        id: 'periodList',
+                        title: 'Lista de períodos',
+                        type: 'item',
+                        url: '/periods',
+                        exactMatch: true
+                    },
+                    {
+                        id: 'periodNew',
+                        title: 'Novo período',
+                        type: 'item',
+                        url: '/periods/new',
+                        exactMatch: true
+                    }
+                ]
             },
             {
                 id: 'classroom',

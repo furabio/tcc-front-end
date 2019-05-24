@@ -21,6 +21,7 @@ import { ChatPanelFakeDb } from 'app/fake-db/chat-panel';
 import { QuickPanelFakeDb } from 'app/fake-db/quick-panel';
 import { UserFakeDB } from './user';
 import { RoleFakeDb } from './role';
+import { PeriodFakeDb } from './period';
 
 export class FakeDbService implements InMemoryDbService
 {
@@ -103,6 +104,8 @@ export class FakeDbService implements InMemoryDbService
             'users': UserFakeDB.users,
             // Roles
             'roles': RoleFakeDb.roles,
+            // Periods
+            'periods': PeriodFakeDb.periods
         };
     }
 }

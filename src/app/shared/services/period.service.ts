@@ -8,6 +8,6 @@ import { Period } from '../model/period.model';
 export class PeriodService extends BaseResourceService<Period> {
 
   constructor(protected injector: Injector) {
-    super("", "", injector);
+    super("api", "periods", injector);
   }
 }
