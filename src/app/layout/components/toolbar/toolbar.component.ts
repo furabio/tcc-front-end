@@ -114,7 +114,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             });
 
         this.user = JSON.parse(sessionStorage.getItem('user'));
-        this.fullName = this.user.fullName;
+        this.fullName = this.user ? this.user.fullName : '';
         // Set the selected language from default languages
         this.selectedLanguage = _.find(this.languages, { 'id': this._translateService.currentLang });
     }
